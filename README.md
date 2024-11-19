@@ -1,50 +1,93 @@
-# React + TypeScript + Vite
+# GestProducts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## <a name="apresentation">Introduction</a>
 
-Currently, two official plugins are available:
+GestProducts is a product inventory management project where users can create and associate products with categories. It includes authentication and authorization features to control access to endpoints.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## <a name="techsUsage">Technologies Used</a>
 
-## Expanding the ESLint configuration
+For this project I used the following technologies and why:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+``React``: Library for building user interfaces.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+``TailwindCSS``: CSS framework for styling.
+
+``Axios``: Library for making HTTP requests.
+
+``React Router``: Route management.
+
+## <a name="routes">Routes</a>
+
+ - ``/register``: User registration screen.
+ - ``/`` : User login screen.
+
+## <a name="apiConfig">API Configuration</a>
+
+Before we jump into basic usage, make sure the backend API is running and configured correctly. Update the API endpoint in the project if necessary.
+
+
+[Click here to navigate to the backend repository](https://github.com/gcmorais/gestproducts-serverside)
+
+## <a name="basicUsage">Basic Usage</a>
+
+Follow these steps to set up the project locally on your machine.
+
+
+**Prerequisites**
+<a name="prerequisites"></a>
+
+Make sure you have the following installed on your machine:
+
+- [Node.js  (v16 or later)](https://nodejs.org)
+- [npm](https://www.npmjs.com/) or [yarn](https://classic.yarnpkg.com/en/)
+
+
+## <a name="installation">Installation</a>
+
+Clone the repository:
+
+```bash
+git clone https://github.com/gcmorais/gestproducts.git
+cd gestproducts
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+**Install dependencies:**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+using npm:
+```bash
+npm install
 ```
+
+using yarn:
+```bash
+yarn install
+```
+
+**Start the development server:**
+
+
+using npm:
+```bash
+npm run dev
+```
+
+using yarn:
+```bash
+yarn dev
+```
+
+**Start the development server:**
+
+Open your browser and navigate to:
+
+```bash
+http://localhost:5173
+```
+
+
+## <a name="contribution">Contribution</a>
+
+Feel free to contribute by submitting issues or pull requests to enhance the project.
+
+If you have any questions or ideas, I'm available to talk. Thank you and I hope you make good use of it. 
