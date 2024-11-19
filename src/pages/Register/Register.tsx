@@ -3,11 +3,12 @@ import { Input } from "../../components/ui/input";
 import ImageBox from "../../components/ImageBox/ImageBox";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const { register } = useAuth();
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
@@ -15,7 +16,12 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/home');
+    }
+  }, [navigate]);
 
   const handleRegister = async () => {
     try {
