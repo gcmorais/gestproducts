@@ -1,8 +1,8 @@
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import ImageBox from "../../components/ImageBox/ImageBox";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import ImageBox from "../../components/imagebox/ImageBox";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
