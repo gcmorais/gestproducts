@@ -1,9 +1,7 @@
-import {
-  GalleryVerticalEnd,
-  Home,
-  Settings
-} from "lucide-react";
+import { GalleryVerticalEnd, Home, Plus, Settings } from "lucide-react";
 
+import { Skeleton } from "../../components/ui/skeleton";
+import { NavMain } from "../nav-main/NavMain";
 import { NavUser } from "../nav-user/NavUser";
 import {
   Sidebar,
@@ -14,32 +12,57 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
 } from "../ui/sidebar";
 
-// Menu items.
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  items: [
-    {
-      title: "Home",
-      url: "/home",
-      icon: Home,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
-    },
-  ],
-};
+import { useAuth } from "../../context/AuthContext";
 
 export function AppSidebar() {
+  const { user } = useAuth();
+
+  console.log(user)
+
+  const userData = user ? {
+    name: user.fullName || "Nome Completo",
+    email: user.email || "email@anonimo.com",
+    avatar: user.avatar || "/avatars/default.jpg",
+  } : <Skeleton className="w-full h-full" />;
+
+  const data = {
+    user: userData,
+    items: [
+      {
+        title: "Início",
+        url: "/home",
+        icon: Home,
+      },
+      {
+        title: "Configurações",
+        url: "#",
+        icon: Settings,
+      },
+    ],
+    navMain: [
+      {
+        title: "Adicionar",
+        url: "#",
+        icon: Plus,
+        isActive: true,
+        items: [
+          {
+            title: "Categoria",
+            url: "#",
+          },
+          {
+            title: "Produto",
+            url: "#",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -47,12 +70,12 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/home">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground bg-blue-500">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-sidebar-primary-foreground ">
                   <GalleryVerticalEnd className="size-4 text-white " />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">gestProducts</span>
-                  <span className="">Product Management</span>
+                  <span>Product Management</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -61,7 +84,6 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          {/* <SidebarGroupLabel>gestProducts</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {data.items.map((item) => (
@@ -77,6 +99,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
