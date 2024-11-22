@@ -1,64 +1,98 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TableComponent from "../../components/table/Table";
 import Layout from "./Layout";
+import { useAuth } from "../../context/AuthContext";
+import Card from "../../components/cards/Cards";
+
+type Product = {
+  name: string;
+  description: string;
+  price: number;
+  stockQuantity: number;
+  brand: string;
+  imageUrl: string;
+  isActive: boolean;
+};
+
+type Category = {
+  id: string;
+  name: string;
+  description: string;
+  products?: Product[];
+};
+
+type User = {
+  id: string;
+  email: string;
+  fullName: string;
+  userName: string;
+  categories?: Category[];
+};
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user }: { user: User | null } = useAuth();
+  const [totals, setTotals] = useState({
+    totalProducts: 0,
+    activeProducts: 0,
+    totalValue: 0,
+  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/");
+    } else if (user && user.categories) {
+      const totalProducts = user.categories.reduce((acc: number, category: Category) => {
+        return acc + (category.products?.length || 0);
+      }, 0);
+
+      const activeProducts = user.categories.reduce((acc: number, category: Category) => {
+        return acc + (category.products?.filter((product: Product) => product.isActive).length || 0);
+      }, 0);
+
+      const totalValue = user.categories.reduce((acc: number, category: Category) => {
+        return (
+          acc +
+          (category.products?.reduce((sum: number, product: Product) => sum + product.price, 0) || 0)
+        );
+      }, 0);
+
+      setTotals({ totalProducts, activeProducts, totalValue });
+      setLoading(false);
     }
-  }, [navigate]);
+  }, [navigate, user]);
 
   return (
     <Layout>
       <div className="flex flex-1 flex-col gap-4 p-4">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3 w-full">
-          <div className="h-56 w-full rounded-xl bg-muted/50 p-4 flex flex-col items-left justify-between bg-[#F3F6F9]">
-            <div>
-              <h1 className="text-3xl font-semibold text-[#464E5F]">
-                Produtos Cadastrados
-              </h1>
-            </div>
-            <div>
-              <h2 className="text-6xl font-medium text-[#464E5F]">60</h2>
-            </div>
-            <div>
-              <h3 className="text-lg text-[#B5B5C3]">Valor total.</h3>
-            </div>
-          </div>
-          <div className="h-56 w-full rounded-xl bg-muted/50 p-4 flex flex-col items-left justify-between bg-[#F3F6F9]">
-            <div>
-              <h1 className="text-3xl font-semibold text-[#464E5F] ">
-                Produtos ativos
-              </h1>
-            </div>
-            <div>
-              <h2 className="text-6xl font-medium text-[#464E5F]">40</h2>
-            </div>
-            <div>
-              <h3 className="text-lg text-[#B5B5C3]">A partir do status.</h3>
-            </div>
-          </div>
-          <div className="h-56 w-full rounded-xl bg-muted/50 p-4 flex flex-col items-left justify-between bg-[#F3F6F9]">
-            <div>
-              <h1 className="text-3xl font-semibold text-[#464E5F]">
-                Valor Total
-              </h1>
-            </div>
-            <div>
-              <h2 className="text-6xl font-medium text-[#1BC5BD]">R$ 60.000</h2>
-            </div>
-            <div>
-              <h3 className="text-lg text-[#B5B5C3]">
-                Somados a partir do preço de cada item.
-              </h3>
-            </div>
-          </div>
+          
+          <Card
+            loading={loading}
+            title="Produtos Cadastrados"
+            value={totals.totalProducts.toString()}
+            description="Valor total."
+          />
+
+          <Card
+            loading={loading}
+            title="Produtos Ativos"
+            value={totals.activeProducts.toString()}
+            description="A partir do status."
+          />
+
+          <Card
+            loading={loading}
+            title="Valor Total"
+            value={`R$ ${totals.totalValue.toFixed(2)}`}
+            description="Somados a partir do preço de cada item."
+            valueClassName="text-[#1BC5BD]"
+          />
         </div>
+
         <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min bg-[#F3F6F9] p-4">
           <TableComponent />
         </div>

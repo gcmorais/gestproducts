@@ -21,8 +21,6 @@ import { useAuth } from "../../context/AuthContext";
 export function AppSidebar() {
   const { user } = useAuth();
 
-  console.log(user)
-
   const userData = user ? {
     name: user.fullName || "Nome Completo",
     email: user.email || "email@anonimo.com",
@@ -39,24 +37,24 @@ export function AppSidebar() {
       },
       {
         title: "Configurações",
-        url: "#",
+        url: "/home",
         icon: Settings,
       },
     ],
     navMain: [
       {
         title: "Adicionar",
-        url: "#",
+        url: "/home",
         icon: Plus,
         isActive: true,
         items: [
           {
             title: "Categoria",
-            url: "#",
+            url: "/home",
           },
           {
             title: "Produto",
-            url: "#",
+            url: "/home",
           },
         ],
       },
