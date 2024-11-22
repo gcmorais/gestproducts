@@ -4,6 +4,7 @@ import Spinner from "./components/spinner/Spinner";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -15,9 +16,37 @@ function App() {
     <Router>
       {loading && <Spinner />}
       <Routes>
-        <Route path="/" element={<PageWrapper onStart={handleStart} onComplete={handleComplete}><Login /></PageWrapper>} />
-        <Route path="/register" element={<PageWrapper onStart={handleStart} onComplete={handleComplete}><Register /></PageWrapper>} />
-        <Route path="/home" element={<PageWrapper onStart={handleStart} onComplete={handleComplete}><Home /></PageWrapper>} />
+        {/* O AuthProvider está agora ao redor das páginas específicas */}
+        <Route
+          path="/"
+          element={
+            <PageWrapper onStart={handleStart} onComplete={handleComplete}>
+              <AuthProvider>
+                <Login />
+              </AuthProvider>
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PageWrapper onStart={handleStart} onComplete={handleComplete}>
+              <AuthProvider>
+                <Register />
+              </AuthProvider>
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <PageWrapper onStart={handleStart} onComplete={handleComplete}>
+              <AuthProvider>
+                <Home />
+              </AuthProvider>
+            </PageWrapper>
+          }
+        />
       </Routes>
     </Router>
   );

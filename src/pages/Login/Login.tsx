@@ -37,15 +37,15 @@ function Login() {
         <ImageBox />
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6">
           <Header
-            text="Don’t have an account?"
-            description="Get Register Now."
+            text="Ainda não tem uma conta?"
+            description="Registre-se"
             linkTo="/register"
           />
           <main className="flex flex-col space-y-6 w-full px-10">
             
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
-                Username
+                Username:
               </label>
               <Input
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -56,7 +56,7 @@ function Login() {
 
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
-                Password
+                Senha:
               </label>
               <Input
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -71,7 +71,7 @@ function Login() {
               onClick={handleLogin}
               disabled={!email || !password}
             >
-              Log In
+              Entrar
             </Button>
           </main>
           <Footer />

@@ -49,15 +49,15 @@ function Register() {
 
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6">
           <Header
-            text="Already have an account?"
-            description="Sign-in"
+            text="Já tem uma conta?"
+            description="Entrar"
             linkTo="/"
           />
           <main className="flex flex-col space-y-6 w-full px-10">
             
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
-                Full Name
+                Nome Completo
               </label>
               <Input
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -90,7 +90,7 @@ function Register() {
 
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
-                Password
+                Senha
               </label>
               <Input
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -102,7 +102,7 @@ function Register() {
 
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700">
-                Confirm Password
+                Confirmar Senha
               </label>
               <Input
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -123,7 +123,7 @@ function Register() {
                 !confirmPassword
               }
             >
-              Register
+              Registrar
             </Button>
           </main>
 

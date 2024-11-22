@@ -19,7 +19,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 
 export function AppSidebar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const userData = user ? {
     name: user.fullName || "Nome Completo",
