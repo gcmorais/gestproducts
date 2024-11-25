@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import Spinner from "./components/spinner/Spinner";
+import Spinner from "./components/spinner/spinner";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -16,7 +16,6 @@ function App() {
     <Router>
       {loading && <Spinner />}
       <Routes>
-        {/* O AuthProvider está agora ao redor das páginas específicas */}
         <Route
           path="/"
           element={
@@ -52,6 +51,7 @@ function App() {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function PageWrapper({ children, onStart, onComplete }: any) {
   const location = useLocation();
 

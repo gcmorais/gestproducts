@@ -1,6 +1,4 @@
 import { GalleryVerticalEnd, Home, Plus, Settings } from "lucide-react";
-
-import { Skeleton } from "../../components/ui/skeleton";
 import { NavMain } from "../nav-main/NavMain";
 import { NavUser } from "../nav-user/NavUser";
 import {
@@ -19,13 +17,19 @@ import {
 import { useAuth } from "../../context/AuthContext";
 
 export function AppSidebar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
-  const userData = user ? {
-    name: user.fullName || "Nome Completo",
-    email: user.email || "email@anonimo.com",
-    avatar: user.avatar || "/avatars/default.jpg",
-  } : <Skeleton className="w-full h-full" />;
+  const userData = user
+    ? {
+        name: user.fullName || "Nome Completo",
+        email: user.email || "email@anonimo.com",
+        avatar: "/avatars/default.jpg",
+      }
+    : {
+        name: "Carregando...",
+        email: "carregando@exemplo.com",
+        avatar: "/avatars/loading.jpg",
+      };
 
   const data = {
     user: userData,
@@ -68,8 +72,8 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/home">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-sidebar-primary-foreground ">
-                  <GalleryVerticalEnd className="size-4 text-white " />
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-blue-500 text-sidebar-primary-foreground">
+                  <GalleryVerticalEnd className="size-4 text-white" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">gestProducts</span>
@@ -105,3 +109,4 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
+
