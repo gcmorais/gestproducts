@@ -6,7 +6,7 @@ const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <div className="relative w-full overflow-auto min-h-[58vh]">
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
@@ -26,15 +26,30 @@ TableHeader.displayName = "TableHeader"
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
-    {...props}
-  />
-))
-TableBody.displayName = "TableBody"
+  React.HTMLAttributes<HTMLTableSectionElement> & { emptyMessage?: string }
+>(({ className, emptyMessage = "No data available", children, ...props }, ref) => {
+  const hasChildren = React.Children.count(children) > 0;
+
+  return (
+    <tbody
+      ref={ref}
+      className={cn("[&_tr:last-child]:border-0", className)}
+      {...props}
+    >
+      {hasChildren ? (
+        children
+      ) : (
+        <tr>
+          <td colSpan={1000} className="d-flex text-center items-center py-4 text-muted-foreground">
+            {emptyMessage}
+          </td>
+        </tr>
+      )}
+    </tbody>
+  );
+});
+TableBody.displayName = "TableBody";
+
 
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,

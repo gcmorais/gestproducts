@@ -93,7 +93,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min bg-[#F3F6F9] p-4">
+        <div className="flex-1 rounded-xl bg-muted/50 md:min-h-min bg-[#F3F6F9] p-4">
           <TableComponent />
         </div>
       </div>

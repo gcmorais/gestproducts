@@ -148,7 +148,7 @@ export default function TableComponent() {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody emptyMessage="No records found">
           {table.getRowModel().rows.map((row) => (
             <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
