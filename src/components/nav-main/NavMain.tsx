@@ -16,7 +16,17 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "../../components/ui/sidebar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
+
 import { Modal } from "../modal/modal";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 export function NavMain({
   items,
@@ -81,26 +91,12 @@ export function NavMain({
                                   <div>
                                     <form>
                                       <div className="mb-4">
-                                        <label htmlFor="categoryName" className="block mb-1">
-                                          Nome
-                                        </label>
-                                        <input
-                                          id="categoryName"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite o nome da categoria"
-                                        />
+                                        <Label htmlFor="categoryName">Nome</Label>
+                                        <Input id="categoryName" />
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="categoryDescription" className="block mb-1">
-                                          Descrição
-                                        </label>
-                                        <input
-                                          id="categoryDescription"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite a descrição da categoria"
-                                        />
+                                        <Label htmlFor="categoryDescription">Descrição</Label>
+                                        <Input id="categoryDescription" />
                                       </div>
                                     </form>
                                   </div>
@@ -117,70 +113,47 @@ export function NavMain({
                                   <div>
                                     <form>
                                       <div className="mb-4">
-                                        <label htmlFor="productName" className="block mb-1">
-                                          Nome
-                                        </label>
-                                        <input
-                                          id="productName"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite o nome do produto"
-                                        />
+                                        <Label htmlFor="productName">Nome</Label>
+                                        <Input id="productName"/>
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="productDescription" className="block mb-1">
-                                          Descrição
-                                        </label>
-                                        <input
-                                          id="productDescription"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite a descrição do produto"
-                                        />
+                                        <Label htmlFor="productDescription">Descrição</Label>
+                                        <Input id="productDescription"/>
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="productPrice" className="block mb-1">
-                                          Preço
-                                        </label>
-                                        <input
-                                          id="productPrice"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite o preço do produto"
-                                        />
+                                        <Label htmlFor="productCategory">Categoria</Label>
+                                        <Select>
+                                          <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Escolher categoria" />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                            <SelectItem value="category1">
+                                              Categoria 1
+                                            </SelectItem>
+                                            <SelectItem value="category2">
+                                              Categoria 2
+                                            </SelectItem>
+                                            <SelectItem value="category3">
+                                              Categoria 3
+                                            </SelectItem>
+                                          </SelectContent>
+                                        </Select>
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="productStock" className="block mb-1">
-                                          Quantidade em estoque
-                                        </label>
-                                        <input
-                                          id="productStock"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite a quantidade em estoque do produto"
-                                        />
+                                        <Label htmlFor="productPrice">Preço</Label>
+                                        <Input />
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="productBrand" className="block mb-1">
-                                          Marca
-                                        </label>
-                                        <input
-                                          id="productBrand"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite a marca do produto"
-                                        />
+                                        <Label htmlFor="productStock">Quantidade em estoque</Label>
+                                        <Input id="productStock" />
                                       </div>
                                       <div className="mb-4">
-                                        <label htmlFor="productImage" className="block mb-1">
-                                          Imagem do produto
-                                        </label>
-                                        <input
-                                          id="productImage"
-                                          type="text"
-                                          className="w-full border px-3 py-2 rounded"
-                                          placeholder="Digite o link para imagem do produto"
-                                        />
+                                        <Label htmlFor="productBrand">Marca</Label>
+                                        <Input id="productBrand" />
+                                      </div>
+                                      <div className="mb-4">
+                                        <Label htmlFor="productImage">Imagem do produto</Label>
+                                        <Input id="productImage" />
                                       </div>
                                     </form>
                                   </div>
