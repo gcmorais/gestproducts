@@ -31,19 +31,16 @@ import {
   TableRow,
 } from "../../components/ui/table"
 
-// Supondo que useAuth() retorna os dados do usuário logado
 import { useAuth } from "../../context/AuthContext"
 
 export default function TableComponent() {
-  // Obtendo dados do usuário logado
   const { user } = useAuth()
 
-  // Extraindo a lista de produtos das categorias
   const data = user?.categories.flatMap(category =>
     category.products.map(product => ({
       id: product.id,
       name: product.name,
-      category: category.name, // Associando a categoria do produto
+      category: category.name,
       brand: product.brand,
       price: product.price,
       stockQuantity: product.stockQuantity,
