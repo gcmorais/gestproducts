@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Spinner from "./components/spinner/spinner";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
+import Register from "./pages/register/register";
+import Login from "./pages/login/login";
+import Home from "./pages/home/home";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {

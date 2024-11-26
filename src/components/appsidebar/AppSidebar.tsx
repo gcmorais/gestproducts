@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd, Home, Plus, Settings } from "lucide-react";
-import { NavMain } from "../nav-main/NavMain";
-import { NavUser } from "../nav-user/NavUser";
+import { NavMain } from "../nav-main/nav-main";
+import { NavUser } from "../nav-user/nav-user";
 import {
   Sidebar,
   SidebarContent,

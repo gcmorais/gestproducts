@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TableComponent from "../../components/table/Table";
-import Layout from "./Layout";
+import TableComponent from "../../components/table-component/table";
+import Layout from "./layout";
 import { useAuth } from "../../context/AuthContext";
 import Card from "../../components/cards/Cards";
 

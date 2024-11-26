@@ -13,7 +13,7 @@ import {
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import * as React from "react"
 
-import { Button } from "../../components/ui/button"
+import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../components/ui/dropdown-menu"
+} from "../ui/dropdown-menu"
 import {
   Table,
   TableBody,
@@ -29,7 +29,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../components/ui/table"
+} from "../ui/table"
 
 import { useAuth } from "../../context/AuthContext"
 
