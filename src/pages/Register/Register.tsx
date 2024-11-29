@@ -2,7 +2,7 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import ImageBox from "../../components/image-box/image-box";
 import Header from "../../components/header/header";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/footer/footer";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
