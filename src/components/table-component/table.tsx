@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   ColumnDef,
@@ -8,12 +8,12 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable
-} from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import * as React from "react"
+  useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import * as React from "react";
 
-import { Button } from "../ui/button"
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
+} from "../ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -29,30 +29,37 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table"
+} from "../ui/table";
 
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "../../context/AuthContext";
 
 export default function TableComponent() {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
-  const data = user?.categories.flatMap(category =>
-    category.products.map(product => ({
-      id: product.id,
-      name: product.name,
-      category: category.name,
-      brand: product.brand,
-      price: product.price,
-      stockQuantity: product.stockQuantity,
-      status: product.isActive ? "Ativo" : "Inativo",
-    }))
-  ) || []
+  const data = React.useMemo(
+    () =>
+      user?.categories.flatMap((category) =>
+        category.products.map((product) => ({
+          id: product.id,
+          name: product.name,
+          category: category.name,
+          brand: product.brand,
+          price: product.price,
+          stockQuantity: product.stockQuantity,
+          status: product.isActive ? "Ativo" : "Inativo",
+        }))
+      ) || [],
+    [user]
+  );
 
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState([])
-  const [pagination, setPagination] = React.useState({ pageIndex: 0, pageSize: 10 })
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState([]);
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 9,
+  });
 
-  const columns: ColumnDef<typeof data[0]>[] = React.useMemo(
+  const columns: ColumnDef<(typeof data)[0]>[] = React.useMemo(
     () => [
       {
         accessorKey: "name",
@@ -106,7 +113,7 @@ export default function TableComponent() {
       },
     ],
     []
-  )
+  );
 
   const table = useReactTable({
     data,
@@ -118,11 +125,11 @@ export default function TableComponent() {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  })
+    debugTable: false,
+  });
 
   return (
     <div className="overflow-x-auto">
-      
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -145,20 +152,31 @@ export default function TableComponent() {
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody emptyMessage="No records found">
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-              ))}
+        <TableBody>
+          {data.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="text-center">
+                No records found
+              </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
 
       <div className="flex justify-between items-center mt-4">
         <div className="text-sm">
-          Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
+          Página {table.getState().pagination.pageIndex + 1} de{" "}
+          {table.getPageCount()}
         </div>
         <div className="flex space-x-2">
           <Button
@@ -178,5 +196,5 @@ export default function TableComponent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
