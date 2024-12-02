@@ -155,6 +155,14 @@ export function NavMain({
       throw new Error("Não foi possível criar o produto. Tente novamente.");
     }
   };
+
+  const showMessageAndUpdatePage = () => {
+    alert("Item adicionado com sucesso!");
+  
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
   
 
   const handleSave = async () => {
@@ -172,7 +180,7 @@ export function NavMain({
       });
     }
     handleCloseModal();
-    window.location.reload();
+    showMessageAndUpdatePage();
   };
 
   return (
