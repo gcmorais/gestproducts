@@ -15,6 +15,18 @@ import * as React from "react";
 import axios from "axios";
 import { Label } from "../ui/label";
 
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "../ui/alert-dialog";
+
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -45,7 +57,7 @@ import { Input } from "../ui/input";
 
 export default function TableComponent() {
   const { user } = useAuth();
-  const storedToken = localStorage.getItem("token"); // Certifique-se de que o token JWT está armazenado corretamente
+  const storedToken = localStorage.getItem("token");
 
   const data = React.useMemo(
     () =>
@@ -75,6 +87,25 @@ export default function TableComponent() {
     pageIndex: 0,
     pageSize: 9,
   });
+
+  const handleDelete = async (productId: string) => {
+    try {
+      const response = await axios.delete(
+        `https://localhost:7280/api/Product/${productId}`,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+  
+      if (response.status === 200) {
+        alert("Produto deletado com sucesso!");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Erro ao deletar produto:", error.message);
+      alert("Erro ao deletar o produto. Tente novamente.");
+    }
+  };
 
   const columns: ColumnDef<(typeof data)[0]>[] = React.useMemo(
     () => [
@@ -113,19 +144,49 @@ export default function TableComponent() {
         header: "Ações",
         cell: ({ row }) => (
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Opções</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleOpenModal(row.original)}>
-                Editar
-              </DropdownMenuItem>
-              <DropdownMenuItem>Deletar</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline" size="icon">
+      <MoreHorizontal className="h-4 w-4" />
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end">
+    <DropdownMenuLabel>Opções</DropdownMenuLabel>
+    
+    {/* Editar */}
+    <DropdownMenuItem onClick={() => handleOpenModal(row.original)}>
+      Editar
+    </DropdownMenuItem>
+    
+    {/* Deletar */}
+    <DropdownMenuItem>
+      <div
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <span className="cursor-pointer text-red-600">Deletar</span>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Tem certeza disso?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Essa ação não pode ser desfeita. O produto será excluído
+                permanentemente.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={() => handleDelete(row.original.id)}>
+                Confirmar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
         ),
       },
     ],
@@ -147,7 +208,7 @@ export default function TableComponent() {
 
   const handleOpenModal = (product: any) => {
     setSelectedProduct(product);
-    console.log(product)
+    console.log(product);
     setIsModalOpen(true);
   };
 
@@ -257,6 +318,7 @@ export default function TableComponent() {
           </div>
         </div>
       </div>
+
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -306,10 +368,10 @@ export default function TableComponent() {
                 }
               />
             </div>
-            <div>
+            {/* <div>
               <Label htmlFor="status">Status</Label>
               <Select
-                value={selectedProduct.status || "Inativo"}
+                value={selectedProduct.status}
                 onValueChange={(value) =>
                   handleInputChange("status", value === "Ativo")
                 }
@@ -322,7 +384,7 @@ export default function TableComponent() {
                   <SelectItem value="Inativo">Inativo</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </div> */}
           </form>
         )}
       </Modal>
